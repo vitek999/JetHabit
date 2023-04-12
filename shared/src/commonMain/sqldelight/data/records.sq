@@ -1,0 +1,20 @@
+CREATE TABLE RecordEntity(
+    id INTEGER NOT NULL PRIMARY KEY,
+    userId INTEGER NOT NULL,
+    trainId INTEGER NOT NULL,
+    timestamp INTEGER NOT NULL
+);
+
+insert:
+INSERT INTO RecordEntity(id, userId, trainId, timestamp)
+VALUES (?, ?, ?, ?);
+
+selectAll:
+SELECT *
+FROM RecordEntity;
+
+selectLastId:
+SELECT id FROM RecordEntity ORDER BY id DESC LIMIT 1;
+
+selectByUserAndTrain:
+SELECT * FROM RecordEntity WHERE userId = :userId AND trainId = :trainId;

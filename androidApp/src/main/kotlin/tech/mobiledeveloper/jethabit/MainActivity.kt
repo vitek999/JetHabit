@@ -11,8 +11,10 @@ import tech.mobiledeveloper.shared.AppRes
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        PlatformSDK.init(PlatformConfiguration(activityContext = applicationContext,
-            appName = AppRes.string.app_name))
+        PlatformSDK.init(
+            PlatformConfiguration(activityContext = applicationContext, appName = AppRes.string.app_name),
+            AndroidCustomSensorManager(applicationContext)
+        )
 
         setContent {
             MainView()

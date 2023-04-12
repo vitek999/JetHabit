@@ -56,4 +56,23 @@
     <string name="card_example">Card Example</string>
 
     <string name="not_selected">Unselected</string>
+
+    <string name="splash_screen_title">Physical activity tracker</string>
+    <string name="splash_screen_description">Track Physical activity application</string>
+
+    <string name="user_creation">Создание пользователя</string>
+    <string name="last_name">Фамилия</string>
+    <string name="first_name">Имя</string>
+    <string name="age">Возраст</string>
+    <string name="weight">Вес</string>
+    <string name="height">Рост</string>
+    <string name="gender">Пол</string>
+    <string name="male">Мужской</string>
+    <string name="female">Женский</string>
+    <string name="create_user">Сохранить пользователя</string>
+    <string name="select_current_user_button_text">Выбрать текущим</string>
+    <string name="selected_button_text">Выбран</string>
+    <string name="users">Пользователи</string>
+    <string name="create_new_user_button_text">Создать нового пользователя</string>
+    <string name="trains">Тренировки</string>
 </resources>

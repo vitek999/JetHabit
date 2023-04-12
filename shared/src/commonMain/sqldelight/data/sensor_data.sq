@@ -1,0 +1,23 @@
+CREATE TABLE SensorDataEntity(
+    recordId INTEGER NOT NULL,
+    timestamp INTEGER NOT NULL,
+    sensorType INTEGER NOT NULL,
+    gx REAL NOT NULL,
+    gy REAL NOT NULL,
+    gz REAL NOT NULL
+);
+
+insert:
+INSERT INTO SensorDataEntity(recordId, timestamp, sensorType, gx, gy, gz)
+VALUES (?, ?, ?, ?, ?, ?);
+
+selectAll:
+SELECT *
+FROM SensorDataEntity;
+
+selectAllByRecordId:
+SELECT * FROM SensorDataEntity WHERE recordId = :recordId;
+
+selectAllByRecordIdAndSensorType:
+SELECT * FROM SensorDataEntity WHERE recordId = :recordId AND sensorType = :sensorId;
+
