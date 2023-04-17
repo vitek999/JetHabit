@@ -44,7 +44,11 @@ class TrainMainScreenViewModel :
     private fun fetchSelectedUser() {
         viewModelScope.launch {
             runCatching {
-                val data = userRepository.getSelectedUser()
+                val data = userRepository.getSelectedUser() ?: run {
+                    val defaultUser = userRepository.fetchAllUsers().firstOrNull()
+                    userRepository.setSelectedUser(defaultUser)
+                    defaultUser
+                }
                 viewState = viewState.copy(selectedUser = data)
             }.onFailure {
                 viewState = viewState.copy(selectedUser = null)
