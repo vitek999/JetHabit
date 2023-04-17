@@ -75,4 +75,8 @@
     <string name="users">Пользователи</string>
     <string name="create_new_user_button_text">Создать нового пользователя</string>
     <string name="trains">Тренировки</string>
+    <string name="start_button_text">Начать</string>
+    <string name="stop_button_text">Остановить</string>
+    <string name="train_title_text">Запись: ${trainName}</string>
+    <string name="record_in_progress">Идет запись</string>
 </resources>

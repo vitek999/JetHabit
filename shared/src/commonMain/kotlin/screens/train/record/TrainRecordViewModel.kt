@@ -54,6 +54,7 @@ class TrainRecordViewModel(
 
     private fun handleOnStopRecordClick() {
         sensorManager.stop()
+        viewState = viewState.copy(recording = false)
     }
 
     private fun handleOnStartRecordClick() {

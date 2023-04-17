@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import screens.train.record.model.TrainRecordViewState
+import tech.mobiledeveloper.shared.AppRes
 import ui.themes.JetHabitTheme
 import ui.themes.components.JetHabitButton
 import ui.themes.components.ScreenHeader
@@ -22,27 +23,21 @@ fun TrainRecordView(
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
         ScreenHeader(
-            title = "Запись: ${viewState.train?.title.orEmpty()}",
+            title = AppRes.string.train_title_text.format(viewState.train?.title.orEmpty()),
             backEnabled = true,
             onBackClick = onBackClicked,
         )
 
         JetHabitButton(
             modifier = Modifier.fillMaxWidth().padding(top = 8.dp, start = 16.dp, end = 16.dp),
-            text = "Начать",
-            onClick = onStarClick,
-        )
-
-        JetHabitButton(
-            modifier = Modifier.fillMaxWidth().padding(top = 8.dp, start = 16.dp, end = 16.dp),
-            text = "Остановить",
-            onClick = onStopClick,
+            text = if (viewState.recording) AppRes.string.stop_button_text else AppRes.string.start_button_text,
+            onClick = if (viewState.recording) onStopClick else onStarClick,
         )
 
         if (viewState.recording) {
             Text(
                 modifier = Modifier.padding(start = 16.dp, top = 8.dp),
-                text = "Идет запись",
+                text = AppRes.string.record_in_progress,
                 style = JetHabitTheme.typography.body,
                 color = JetHabitTheme.colors.primaryText,
             )
