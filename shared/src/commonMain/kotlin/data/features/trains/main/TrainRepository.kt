@@ -13,9 +13,11 @@ import sensors.SensorData
 
 class TrainRepository(private val database: Database) {
     private val trains: List<Train> = listOf(
-        Train(1L,  "Присидания"),
+        Train(1L,  "Приседания"),
         Train(2L,  "Отжимания"),
         Train(3L,  "Прыжки"),
+        Train(4L,  "Выпады"),
+        Train(5L,  "Прес"),
     )
 
     suspend fun fetchAllTrains(): List<Train> = trains
