@@ -31,7 +31,8 @@ internal fun CreateUserScreen() {
 
         when (viewAction) {
             CreateUserAction.UserSaved -> {
-
+                viewModel.obtainEvent(CreateUserEvent.ActionInvoked)
+                rootController.popBackStack()
             }
             CreateUserAction.NavigateBack -> {
                 viewModel.obtainEvent(CreateUserEvent.ActionInvoked)
