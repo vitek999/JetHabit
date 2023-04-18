@@ -7,4 +7,5 @@ data class TrainRecordViewState(
     val recording: Boolean = false,
     val user: User? = null,
     val train: Train? = null,
+    val recordTime: Int = 20,
 )

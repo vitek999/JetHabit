@@ -11,6 +11,7 @@ import androidx.compose.ui.unit.dp
 import screens.train.record.model.TrainRecordViewState
 import tech.mobiledeveloper.shared.AppRes
 import ui.themes.JetHabitTheme
+import ui.themes.components.IntegerField
 import ui.themes.components.JetHabitButton
 import ui.themes.components.ScreenHeader
 
@@ -20,6 +21,7 @@ fun TrainRecordView(
     onBackClicked: () -> Unit,
     onStarClick: () -> Unit,
     onStopClick: () -> Unit,
+    onRecordTimeChanged: (Int) -> Unit,
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
         ScreenHeader(
@@ -32,6 +34,12 @@ fun TrainRecordView(
             modifier = Modifier.fillMaxWidth().padding(top = 8.dp, start = 16.dp, end = 16.dp),
             text = if (viewState.recording) AppRes.string.stop_button_text else AppRes.string.start_button_text,
             onClick = if (viewState.recording) onStopClick else onStarClick,
+        )
+
+        IntegerField(
+            modifier = Modifier.fillMaxWidth().padding(top = 8.dp, start = 16.dp, end = 16.dp),
+            value = viewState.recordTime,
+            onChange = onRecordTimeChanged,
         )
 
         if (viewState.recording) {

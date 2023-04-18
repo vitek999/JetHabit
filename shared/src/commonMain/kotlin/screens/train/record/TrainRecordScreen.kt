@@ -26,7 +26,8 @@ fun TrainRecordScreen(args: TrainRecordScreenArgs) {
             viewState = viewState,
             onBackClicked = { viewModel.obtainEvent(TrainRecordEvent.OnBackPressed) },
             onStarClick = { viewModel.obtainEvent(TrainRecordEvent.OnStartRecordClick) },
-            onStopClick = { viewModel.obtainEvent(TrainRecordEvent.OnStopRecordClick) }
+            onStopClick = { viewModel.obtainEvent(TrainRecordEvent.OnStopRecordClick) },
+            onRecordTimeChanged = { viewModel.obtainEvent(TrainRecordEvent.TrainRecordTimeChanged(it)) }
         )
 
         when(viewAction) {

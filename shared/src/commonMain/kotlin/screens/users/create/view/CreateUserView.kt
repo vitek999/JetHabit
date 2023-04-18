@@ -2,7 +2,6 @@ package screens.users.create.view
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.RadioButton
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
@@ -10,13 +9,14 @@ import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import data.features.users.models.Gender
 import screens.users.create.model.CreateUserViewState
 import tech.mobiledeveloper.shared.AppRes
 import ui.themes.JetHabitTheme
+import ui.themes.components.IntegerField
 import ui.themes.components.JetHabitButton
+import ui.themes.components.LabelTextView
 import ui.themes.components.ScreenHeader
 
 @Composable
@@ -52,19 +52,19 @@ internal fun CreateUserView(
             label = AppRes.string.last_name,
             onChange = onSecondNameChange,
         )
-        CreateUserIntegerField(
+        IntegerField(
             modifier = itemModifier,
             value = viewState.age,
             label = AppRes.string.age,
             onChange = onAgeChange,
         )
-        CreateUserIntegerField(
+        IntegerField(
             modifier = itemModifier,
             value = viewState.height,
             label = AppRes.string.height,
             onChange = onHeightChange,
         )
-        CreateUserIntegerField(
+        IntegerField(
             modifier = itemModifier,
             value = viewState.weight,
             label = AppRes.string.weight,
@@ -121,34 +121,6 @@ private fun CreateUserTextField(
     )
 }
 
-@Composable
-private fun CreateUserIntegerField(
-    modifier: Modifier = Modifier,
-    value: Int,
-    label: String? = null,
-    onChange: (Int) -> Unit,
-) {
-    TextField(
-        modifier = modifier.fillMaxWidth(),
-        value = value.toString(),
-        singleLine = true,
-        label = label?.let { { LabelTextView(label) } },
-        onValueChange = { onChange(it.toInt()) },
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-        colors = TextFieldDefaults.textFieldColors(
-            backgroundColor = JetHabitTheme.colors.primaryBackground,
-            textColor = JetHabitTheme.colors.primaryText,
-            focusedIndicatorColor = JetHabitTheme.colors.tintColor,
-            disabledIndicatorColor = JetHabitTheme.colors.controlColor,
-            cursorColor = JetHabitTheme.colors.tintColor
-        )
-    )
-}
-
-@Composable
-private fun LabelTextView(text: String) {
-    Text(text = text, style = JetHabitTheme.typography.body, color = JetHabitTheme.colors.secondaryText)
-}
 
 @Composable
 private fun UserCreationRadioButton(
@@ -157,7 +129,7 @@ private fun UserCreationRadioButton(
     selected: Boolean,
     onClick: () -> Unit
 ) {
-    Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+    Row(modifier = modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
         RadioButton(
             selected = selected,
             onClick = onClick,

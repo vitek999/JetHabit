@@ -49,7 +49,12 @@ class TrainRecordViewModel(
             TrainRecordEvent.OnBackPressed -> handleOnBackPressed()
             TrainRecordEvent.OnStartRecordClick -> handleOnStartRecordClick()
             TrainRecordEvent.OnStopRecordClick -> handleOnStopRecordClick()
+            is TrainRecordEvent.TrainRecordTimeChanged -> handleOnTrainRecordTimeChanged(viewEvent.time)
         }
+    }
+
+    private fun handleOnTrainRecordTimeChanged(time: Int) {
+        viewState = viewState.copy(recordTime = time)
     }
 
     private fun handleOnStopRecordClick() {
@@ -58,7 +63,7 @@ class TrainRecordViewModel(
     }
 
     private fun handleOnStartRecordClick() {
-        sensorManager.start(10.toDuration(DurationUnit.SECONDS))
+        sensorManager.start(viewState.recordTime.toDuration(DurationUnit.SECONDS))
         viewState = viewState.copy(recording = true)
     }
 
