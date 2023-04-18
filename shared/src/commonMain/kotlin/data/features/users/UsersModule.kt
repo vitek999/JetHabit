@@ -5,5 +5,5 @@ import org.kodein.di.bindSingleton
 import org.kodein.di.instance
 
 val usersModule = DI.Module("users") {
-    bindSingleton<UserRepository> { UserRepository(instance()) }
+    bindSingleton<UserRepository> { UserRepository(instance(), instance()) }
 }

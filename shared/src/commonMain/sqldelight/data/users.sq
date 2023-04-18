@@ -16,5 +16,8 @@ selectAll:
 SELECT *
 FROM UserEntity;
 
+selectById:
+SELECT * FROM UserEntity WHERE id = :userId;
+
 selectLastId:
 SELECT id FROM UserEntity ORDER BY id DESC LIMIT 1;

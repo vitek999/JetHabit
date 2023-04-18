@@ -1,36 +1,25 @@
 package data.features.users
 
 import Database
+import com.russhwolf.settings.Settings
+import com.russhwolf.settings.set
+import data.UserEntity
 import data.features.users.models.Gender
 import data.features.users.models.User
 
-class UserRepository(private val database: Database) {
-    private val users = mutableListOf<User>(User(id = 1L, firstName = "Some", lastName = "Some", age = 20, weight = 20, height = 20, gender = Gender.Female))
-    private var selectedUser: User? = null
+class UserRepository(
+    private val database: Database,
+    private val settings: Settings,
+) {
 
     suspend fun fetchAllUsers(): List<User> = database.usersQueries.selectAll().executeAsList().map {
-        User(
-            it.id,
-            firstName = it.firstName,
-            lastName = it.lastName,
-            age = it.age.toInt(),
-            weight = it.weight.toInt(),
-            height = it.height.toInt(),
-            gender = Gender.of(it.gender.toInt())
-        )
+        it.asUser()
     }
 
-    suspend fun fetchUserById(id: Long): User? = users.firstOrNull { it.id == id }
+    suspend fun fetchUserById(id: Long): User? = database.usersQueries.selectById(id).executeAsOneOrNull()?.asUser()
 
     suspend fun createUser(user: User) {
         val id = database.usersQueries.selectLastId().executeAsOneOrNull()?.let { it + 1 } ?: 0
-//        val usersCheckStrings = users.map(User::uniqueCheckData)
-//        val userCheckString = user.uniqueCheckData
-//        if (userCheckString in usersCheckStrings) {
-//            throw UserAlreadyExistsException()
-//        } else {
-//            users += user
-//        }
         val userForInsert = user.copy(id = id)
         database.usersQueries.insert(
             id = userForInsert.id,
@@ -43,10 +32,26 @@ class UserRepository(private val database: Database) {
         )
     }
 
-    suspend fun getSelectedUser(): User? = selectedUser
+    suspend fun getSelectedUser(): User? = settings.getLongOrNull(SELECTED_USER_KEY)?.let {
+        database.usersQueries.selectById(it).executeAsOneOrNull()?.asUser()
+    }
 
     suspend fun setSelectedUser(user: User?) {
-        selectedUser = user
+        settings[SELECTED_USER_KEY] = user?.id
+    }
+
+    companion object {
+        private fun UserEntity.asUser(): User = User(
+            id = id,
+            firstName = firstName,
+            lastName = lastName,
+            age = age.toInt(),
+            weight = weight.toInt(),
+            height = height.toInt(),
+            gender = Gender.of(gender.toInt())
+        )
+
+        private const val SELECTED_USER_KEY = "settings_selected_user_key"
     }
 }
 
