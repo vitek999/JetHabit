@@ -25,6 +25,7 @@ import screens.train.detailed.TrainDetailedScreen
 import screens.train.main.TrainMainScreen
 import screens.train.record.TrainRecordScreen
 import screens.train.record.TrainRecordScreenArgs
+import screens.train.settings.TrainSettingsScreen
 import screens.users.create.CreateUserScreen
 import screens.users.detailed.UserDetailedScreen
 import screens.users.main.UsersMainScreen
@@ -64,6 +65,10 @@ internal fun RootComposeBuilder.navigationGraph() {
 
     screen(NavigationTree.TrainDataCollector.Record.name) {
         TrainRecordScreen(it as TrainRecordScreenArgs)
+    }
+
+    screen(NavigationTree.TrainDataCollector.Settings.name) {
+        TrainSettingsScreen()
     }
 
 //
@@ -119,6 +124,8 @@ internal object NavigationTree {
 
         object Detailed : TrainDataCollector()
         object Record : TrainDataCollector()
+
+        object Settings : TrainDataCollector()
     }
 
     sealed class Users : Screen() {

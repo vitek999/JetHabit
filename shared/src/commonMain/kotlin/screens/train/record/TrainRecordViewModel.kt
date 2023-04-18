@@ -2,6 +2,7 @@ package screens.train.record
 
 import com.adeo.kviewmodel.BaseSharedViewModel
 import data.features.trains.main.TrainRepository
+import data.features.trains.settings.SettingsRepository
 import data.features.users.UserRepository
 import di.Inject
 import kotlinx.coroutines.launch
@@ -22,6 +23,7 @@ class TrainRecordViewModel(
     private val userRepository = Inject.instance<UserRepository>()
     private val trainRepository = Inject.instance<TrainRepository>()
     private val sensorManager = Inject.instance<CustomSensorManager>()
+    private val settingsRepository = Inject.instance<SettingsRepository>()
 
     init {
         fetchUser(userId)
@@ -41,6 +43,9 @@ class TrainRecordViewModel(
 
             }
         })
+
+        val defaultRecordTime = settingsRepository.getDefaultTrainTime()
+        viewState = viewState.copy(recordTime = defaultRecordTime)
     }
 
     override fun obtainEvent(viewEvent: TrainRecordEvent) {

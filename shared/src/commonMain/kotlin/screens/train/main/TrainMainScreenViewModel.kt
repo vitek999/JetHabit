@@ -30,7 +30,12 @@ class TrainMainScreenViewModel :
             is TrainMainScreenEvent.TrainSelected -> handleTrainSelectedEvent(viewEvent.train)
             TrainMainScreenEvent.OnUsersClicked -> handleOnUsersClicked()
             TrainMainScreenEvent.OnBackClicked -> handleOnBackClicked()
+            TrainMainScreenEvent.OnSettingsClicked -> handleOnSettingsClicked()
         }
+    }
+
+    private fun handleOnSettingsClicked() {
+        viewAction = TrainMainScreenAction.OpenSettings
     }
 
     private fun handleOnBackClicked() {

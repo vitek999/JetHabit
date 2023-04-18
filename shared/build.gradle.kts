@@ -69,6 +69,9 @@ kotlin {
                 implementation(libs.libres.compose)
                 implementation(libs.kotlin.serialization)
                 implementation(libs.kotlin.datetime)
+
+                implementation(libs.settings.multuiplatform.noarg)
+                implementation(libs.settings.multuiplatform)
             }
         }
         val commonTest by getting {

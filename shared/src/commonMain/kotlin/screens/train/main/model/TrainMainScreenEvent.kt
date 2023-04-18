@@ -7,4 +7,5 @@ sealed class TrainMainScreenEvent {
     object OnUsersClicked : TrainMainScreenEvent()
     object ActionInvoked : TrainMainScreenEvent()
     object OnBackClicked : TrainMainScreenEvent()
+    object OnSettingsClicked : TrainMainScreenEvent()
 }

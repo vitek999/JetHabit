@@ -79,4 +79,7 @@
     <string name="stop_button_text">Остановить</string>
     <string name="train_title_text">Запись: ${trainName}</string>
     <string name="record_in_progress">Идет запись</string>
+    <string name="settings_button_text">Настройки</string>
+    <string name="settings_title">Настройки</string>
+    <string name="settings_save_button_text">Сохранить</string>
 </resources>

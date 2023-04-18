@@ -24,6 +24,7 @@ internal fun TrainMainView(
     onRowClick: (train: Train) -> Unit,
     onUsersClick: () -> Unit,
     onBackClick: () -> Unit,
+    onSettingsClick: () -> Unit,
 ) {
     Column(
         modifier = Modifier.fillMaxSize()
@@ -62,6 +63,12 @@ internal fun TrainMainView(
                 )
             }
         }
+
+        JetHabitButton(
+            modifier = Modifier.fillMaxWidth().padding(start = 8.dp, end = 8.dp, top = 8.dp),
+            text  = AppRes.string.settings_button_text,
+            onClick = onSettingsClick,
+        )
 
 
         LazyColumn(

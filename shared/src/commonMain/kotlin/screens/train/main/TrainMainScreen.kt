@@ -5,8 +5,6 @@ import androidx.compose.runtime.getValue
 import com.adeo.kviewmodel.compose.ViewModel
 import com.adeo.kviewmodel.compose.observeAsState
 import navigation.NavigationTree
-import navigation.present
-import ru.alexgladkov.odyssey.compose.extensions.present
 import ru.alexgladkov.odyssey.compose.extensions.push
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
 import screens.train.main.model.TrainMainScreenAction
@@ -25,7 +23,8 @@ internal fun TrainMainScreen() {
             viewState = viewState,
             onRowClick = { viewModel.obtainEvent(TrainMainScreenEvent.TrainSelected(it)) },
             onUsersClick = { viewModel.obtainEvent(TrainMainScreenEvent.OnUsersClicked)},
-            onBackClick =  { viewModel.obtainEvent(TrainMainScreenEvent.OnBackClicked)}
+            onBackClick =  { viewModel.obtainEvent(TrainMainScreenEvent.OnBackClicked)},
+            onSettingsClick = { viewModel.obtainEvent(TrainMainScreenEvent.OnSettingsClicked) }
         )
 
         when (val action = viewAction) {
@@ -44,6 +43,11 @@ internal fun TrainMainScreen() {
             TrainMainScreenAction.NavigateBack -> {
                 viewModel.obtainEvent(TrainMainScreenEvent.ActionInvoked)
                 rootController.popBackStack()
+            }
+
+            TrainMainScreenAction.OpenSettings -> {
+                viewModel.obtainEvent(TrainMainScreenEvent.ActionInvoked)
+                rootController.push(NavigationTree.TrainDataCollector.Settings.name)
             }
         }
     }
