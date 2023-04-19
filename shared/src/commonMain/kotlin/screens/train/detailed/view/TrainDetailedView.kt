@@ -21,6 +21,7 @@ fun TrainDetailedView(
     viewState: TrainDetailedViewState,
     onBackClick: () -> Unit,
     onRecordClick: () -> Unit,
+    onExportClick: () -> Unit,
     omSavedRecordClick: (id: Long) -> Unit,
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
@@ -34,6 +35,12 @@ fun TrainDetailedView(
             modifier = Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp, top = 8.dp),
             text = "Записать",
             onClick = onRecordClick
+        )
+
+        JetHabitButton(
+            modifier = Modifier.fillMaxWidth().padding(start = 16.dp, end = 16.dp, top = 8.dp),
+            text = "Экспорт",
+            onClick = onExportClick
         )
 
         LazyColumn(modifier = Modifier.fillMaxSize().padding(top = 8.dp)) {

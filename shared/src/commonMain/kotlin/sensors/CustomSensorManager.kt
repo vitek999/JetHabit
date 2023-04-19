@@ -1,5 +1,6 @@
 package sensors
 
+import kotlinx.serialization.Serializable
 import kotlin.time.Duration
 
 abstract class SensorValue {
@@ -40,6 +41,26 @@ data class SensorData(
     }
 }
 
+@Serializable
+data class SensorValueDto(
+    val timestamp: Long,
+    val gx: Float,
+    val gy: Float,
+    val gz: Float,
+)
+
+@Serializable
+data class SensorDataDto(
+    val accelerometerValue: List<SensorValueDto>,
+    val gyroscopeValue: List<SensorValueDto>,
+    val size: Int,
+)
+
+fun SensorData.asDto(): SensorDataDto = SensorDataDto(
+    accelerometerValue = accelerometerValue.map { SensorValueDto(it.timestamp, it.gx, it.gy, it.gz) },
+    gyroscopeValue = gyroscopeValue.map { SensorValueDto(it.timestamp, it.gx, it.gy, it.gz) },
+    size = size
+)
 
 interface CustomSensorManager {
     fun start(time: Duration)

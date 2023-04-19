@@ -24,6 +24,7 @@ fun TrainDetailedScreen(trainId: Long) {
             viewState = viewState,
             onBackClick = { viewModel.obtainEvent(TrainDetailedEvent.OnBackClicked) },
             onRecordClick = { viewModel.obtainEvent(TrainDetailedEvent.OnRecordClicked) },
+            onExportClick = { viewModel.obtainEvent(TrainDetailedEvent.OnExportClicked) },
             omSavedRecordClick = { viewModel.obtainEvent(TrainDetailedEvent.OnSavedRecordClicked(it))}
         )
 
