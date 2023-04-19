@@ -82,4 +82,5 @@
     <string name="settings_button_text">Настройки</string>
     <string name="settings_title">Настройки</string>
     <string name="settings_save_button_text">Сохранить</string>
+    <string name="export_user_data">Выгрузить пользователей</string>
 </resources>

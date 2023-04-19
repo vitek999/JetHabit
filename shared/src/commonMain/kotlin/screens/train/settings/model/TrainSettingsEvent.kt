@@ -5,4 +5,5 @@ sealed class TrainSettingsEvent {
     object ActionInvoked : TrainSettingsEvent()
     object OnBackClicked : TrainSettingsEvent()
     object OnSaveClicked : TrainSettingsEvent()
+    object OnExportUserDataClicked : TrainSettingsEvent()
 }

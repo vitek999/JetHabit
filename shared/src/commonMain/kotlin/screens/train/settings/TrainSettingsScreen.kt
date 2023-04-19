@@ -21,15 +21,17 @@ fun TrainSettingsScreen() {
             viewState = viewState,
             onBackClick = { viewModel.obtainEvent(TrainSettingsEvent.OnBackClicked) },
             onSaveClick = { viewModel.obtainEvent(TrainSettingsEvent.OnSaveClicked) },
-            onTrainTimeChange = { viewModel.obtainEvent(TrainSettingsEvent.TrainTimeChanged(it)) }
+            onTrainTimeChange = { viewModel.obtainEvent(TrainSettingsEvent.TrainTimeChanged(it)) },
+            onExportClick = { viewModel.obtainEvent(TrainSettingsEvent.OnExportUserDataClicked) }
         )
 
-        when(viewAction) {
+        when (viewAction) {
             TrainSettingsAction.NavigateBack -> {
                 viewModel.obtainEvent(TrainSettingsEvent.ActionInvoked)
                 rootController.popBackStack()
             }
-            null -> { }
+
+            null -> {}
         }
     }
 }

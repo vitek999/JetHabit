@@ -9,6 +9,7 @@ enum class Platform {
 expect class PlatformConfiguration {
     val appName: String
     val platform: Platform
+    fun exportDataToFile(data: String, fileName: String)
 }
 
 internal val LocalPlatform = staticCompositionLocalOf<Platform> { error("no default platform") }
