@@ -1,0 +1,14 @@
+CREATE TABLE ExerciseTimeStampEntity(
+    recordId INTEGER NOT NULL,
+    timestamp INTEGER NOT NULL
+);
+
+insert:
+INSERT INTO ExerciseTimeStampEntity(recordId, timestamp)
+VALUES (?, ?);
+
+selectAll:
+SELECT * FROM ExerciseTimeStampEntity;
+
+selectByRecordId:
+SELECT * FROM ExerciseTimeStampEntity WHERE recordId = :recordId;

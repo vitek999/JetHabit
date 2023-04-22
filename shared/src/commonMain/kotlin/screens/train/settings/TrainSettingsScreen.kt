@@ -21,7 +21,7 @@ fun TrainSettingsScreen() {
             viewState = viewState,
             onBackClick = { viewModel.obtainEvent(TrainSettingsEvent.OnBackClicked) },
             onSaveClick = { viewModel.obtainEvent(TrainSettingsEvent.OnSaveClicked) },
-            onTrainTimeChange = { viewModel.obtainEvent(TrainSettingsEvent.TrainTimeChanged(it)) },
+            onTrainTimeChange = { viewModel.obtainEvent(TrainSettingsEvent.TrainTimeChanged(it.toLong())) },
             onExportClick = { viewModel.obtainEvent(TrainSettingsEvent.OnExportUserDataClicked) }
         )
 

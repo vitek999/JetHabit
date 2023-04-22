@@ -6,11 +6,13 @@ import data.features.trains.settings.SettingsRepository
 import data.features.users.UserRepository
 import di.Inject
 import kotlinx.coroutines.launch
+import kotlinx.datetime.Clock
 import screens.train.record.model.TrainRecordAction
 import screens.train.record.model.TrainRecordEvent
 import screens.train.record.model.TrainRecordViewState
 import sensors.CustomSensorManager
 import sensors.SensorData
+import utils.SoundManager
 import kotlin.time.DurationUnit
 import kotlin.time.toDuration
 
@@ -24,6 +26,7 @@ class TrainRecordViewModel(
     private val trainRepository = Inject.instance<TrainRepository>()
     private val sensorManager = Inject.instance<CustomSensorManager>()
     private val settingsRepository = Inject.instance<SettingsRepository>()
+    private val soundManager = Inject.instance<SoundManager>()
 
     init {
         fetchUser(userId)
@@ -37,7 +40,8 @@ class TrainRecordViewModel(
 
                 viewModelScope.launch {
                     viewState = viewState.copy(recording = false)
-                    trainRepository.addRecord(userId, trainId, data)
+                    trainRepository.addRecord(userId, trainId, data, viewState.timestamps, viewState.recordTime)
+                    soundManager.play()
                     println("Показания успешно сохранены")
                 }
 
@@ -55,21 +59,31 @@ class TrainRecordViewModel(
             TrainRecordEvent.OnStartRecordClick -> handleOnStartRecordClick()
             TrainRecordEvent.OnStopRecordClick -> handleOnStopRecordClick()
             is TrainRecordEvent.TrainRecordTimeChanged -> handleOnTrainRecordTimeChanged(viewEvent.time)
+            TrainRecordEvent.OnSaveExerciseTimestampPressed -> handleOnSaveExerciseTimestampPressed()
         }
     }
 
-    private fun handleOnTrainRecordTimeChanged(time: Int) {
+    private fun handleOnSaveExerciseTimestampPressed() {
+        if (viewState.recording) {
+            val timestamp = (Clock.System.now().toEpochMilliseconds() - viewState.startRecordTimeStamp) * 1_000_000
+            viewState = viewState.copy(timestamps = viewState.timestamps + timestamp)
+            println("TEST: $timestamp")
+        }
+    }
+
+    private fun handleOnTrainRecordTimeChanged(time: Long) {
         viewState = viewState.copy(recordTime = time)
     }
 
     private fun handleOnStopRecordClick() {
         sensorManager.stop()
-        viewState = viewState.copy(recording = false)
+        viewState = viewState.copy(recording = false, timestamps = emptyList(), startRecordTimeStamp = 0L)
     }
 
     private fun handleOnStartRecordClick() {
+        soundManager.play()
         sensorManager.start(viewState.recordTime.toDuration(DurationUnit.SECONDS))
-        viewState = viewState.copy(recording = true)
+        viewState = viewState.copy(recording = true, timestamps = emptyList(), startRecordTimeStamp = Clock.System.now().toEpochMilliseconds())
     }
 
     private fun handleOnBackPressed() {

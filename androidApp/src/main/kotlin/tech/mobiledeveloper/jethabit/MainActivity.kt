@@ -12,13 +12,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         PlatformSDK.init(
-            PlatformConfiguration(
+            configuration = PlatformConfiguration(
                 applicationContext = applicationContext,
                 activityContext = this,
                 appName = AppRes.string.app_name,
                 applicationId = BuildConfig.APPLICATION_ID
             ),
-            AndroidCustomSensorManager(applicationContext)
+            customSensorManager = AndroidCustomSensorManager(applicationContext),
+            soundManager = AndroidSoundManager(applicationContext),
         )
 
         setContent {

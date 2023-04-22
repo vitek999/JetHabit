@@ -45,8 +45,10 @@ class TrainDetailedViewModel(private val trainId: Long) : BaseSharedViewModel<Tr
         viewModelScope.launch {
             val recordsDto = viewState.results.map {
                 val data = trainRepository.fetchSensorDataByTrain(it.id).asDto()
-                it.asDto(data)
+                val timestamps = trainRepository.fetchExercisesByRecordId(it.id)
+                it.asDto(data, timestamps)
             }
+            println("TEST: ${recordsDto.last().timestamps}")
             val json = Json.encodeToString(ListSerializer(RecordDto.serializer()), recordsDto)
             val fileName = "${viewState.currentUser?.id}_${viewState.train?.id}_${Clock.System.now()}.json"
             platformConfiguration.exportDataToFile(json, fileName)

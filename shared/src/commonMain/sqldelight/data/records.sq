@@ -2,12 +2,13 @@ CREATE TABLE RecordEntity(
     id INTEGER NOT NULL PRIMARY KEY,
     userId INTEGER NOT NULL,
     trainId INTEGER NOT NULL,
-    timestamp INTEGER NOT NULL
+    timestamp INTEGER NOT NULL,
+    duration INTEGER NOT NULL
 );
 
 insert:
-INSERT INTO RecordEntity(id, userId, trainId, timestamp)
-VALUES (?, ?, ?, ?);
+INSERT INTO RecordEntity(id, userId, trainId, timestamp, duration)
+VALUES (?, ?, ?, ?, ?);
 
 selectAll:
 SELECT *

@@ -43,8 +43,7 @@ actual class PlatformConfiguration constructor(
                         )
                     )
                     putExtra(
-                        Intent.EXTRA_SUBJECT,
-                        "Выгрузка показаний с телефона ${Build.MODEL}"
+                        Intent.EXTRA_SUBJECT, fileName
                     )
                 }, "Share File")
             )

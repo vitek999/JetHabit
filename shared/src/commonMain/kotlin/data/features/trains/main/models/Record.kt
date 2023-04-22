@@ -11,7 +11,9 @@ data class Record(
     val userId: Long,
     val trainId: Long,
     val date: Instant,
+    val duration: Long,
     val data: SensorData? = null,
+    val timestamps: List<Long> = emptyList(),
 )
 
 @Serializable
@@ -20,8 +22,10 @@ data class RecordDto(
     val userId: Long,
     val trainId: Long,
     val date: Instant,
+    val duration: Long,
     val data: SensorDataDto? = null,
+    val timestamps: List<Long> = emptyList(),
 )
 
-fun Record.asDto(): RecordDto = RecordDto(id, userId, trainId, date, data?.asDto())
-fun Record.asDto(data: SensorDataDto): RecordDto = RecordDto(id, userId, trainId, date, data)
+fun Record.asDto(): RecordDto = RecordDto(id, userId, trainId, date, duration, data?.asDto(), timestamps)
+fun Record.asDto(data: SensorDataDto, timestamps: List<Long>): RecordDto = RecordDto(id, userId, trainId, date, duration, data, timestamps)

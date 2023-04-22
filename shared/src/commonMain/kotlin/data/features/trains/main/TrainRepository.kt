@@ -3,6 +3,7 @@ package data.features.trains.main
 import Database
 import data.RecordEntity
 import data.SensorDataEntity
+import data.features.trains.main.models.Exercise
 import data.features.trains.main.models.Record
 import data.features.trains.main.models.Train
 import kotlinx.datetime.Clock
@@ -17,7 +18,7 @@ class TrainRepository(private val database: Database) {
         Train(2L,  "Отжимания"),
         Train(3L,  "Прыжки"),
         Train(4L,  "Выпады"),
-        Train(5L,  "Прес"),
+        Train(5L,  "Пресс"),
     )
 
     suspend fun fetchAllTrains(): List<Train> = trains
@@ -42,7 +43,13 @@ class TrainRepository(private val database: Database) {
         return SensorData(accData, gyrData)
     }
 
-    suspend fun addRecord(userId: Long, trainId: Long, data: SensorData) {
+    suspend fun fetchExercisesByRecordId(recordId: Long): List<Long> {
+        return database.exerciseQueries.selectByRecordId(recordId).executeAsList().map {
+            it.timestamp
+        }
+    }
+
+    suspend fun addRecord(userId: Long, trainId: Long, data: SensorData, exerciseTimestamps: List<Long>, duration: Long) {
         val id = database.recordsQueries.selectLastId().executeAsOneOrNull()?.let { it + 1 } ?: 0
         val time = Clock.System.now().toEpochMilliseconds()
         database.recordsQueries.insert(
@@ -50,6 +57,7 @@ class TrainRepository(private val database: Database) {
             userId = userId,
             trainId = trainId,
             timestamp = time,
+            duration = duration,
         )
         database.sensor_dataQueries.transaction {
             afterCommit { println("TEST: all inserted") }
@@ -76,6 +84,11 @@ class TrainRepository(private val database: Database) {
                 )
             }
         }
+        database.exerciseQueries.transaction {
+            exerciseTimestamps.forEach {
+                database.exerciseQueries.insert(recordId = id, timestamp = it)
+            }
+        }
     }
 
     companion object  {
@@ -84,10 +97,11 @@ class TrainRepository(private val database: Database) {
             userId = userId,
             trainId = trainId,
             date = Instant.fromEpochMilliseconds(timestamp),
+            duration = duration
         )
 
         private fun SensorDataEntity.asAccelerometerValue(): AccelerometerValue = AccelerometerValue(
-            timestamp  =timestamp,
+            timestamp = timestamp,
             gx = gx.toFloat(),
             gy = gy.toFloat(),
             gz = gz.toFloat(),

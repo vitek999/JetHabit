@@ -58,7 +58,7 @@ class AndroidCustomSensorManager(private val context: Context) : CustomSensorMan
                 if (deltaTimeStamp < timeLimit) {
                     Log.e(
                         TAG,
-                        "onSensorChanged: ${deltaTimeStamp.toDuration(DurationUnit.NANOSECONDS)}:Gx${event.values[0]};Gy${event.values[1]};Gz${event.values[2]}"
+                        "onSensorChanged: ${deltaTimeStamp}:Gx${event.values[0]};Gy${event.values[1]};Gz${event.values[2]}"
                     )
                     if (event.sensor.type == Sensor.TYPE_ACCELEROMETER) {
                         if (!IS_NORMAL) {

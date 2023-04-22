@@ -57,7 +57,7 @@ class TrainSettingsViewModel : BaseSharedViewModel<TrainSettingsViewState, Train
         viewAction = TrainSettingsAction.NavigateBack
     }
 
-    private fun handleTrainTimeChange(time: Int) {
+    private fun handleTrainTimeChange(time: Long) {
         viewState = viewState.copy(trainTime = time)
     }
 }

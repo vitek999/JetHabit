@@ -27,14 +27,16 @@ fun TrainRecordScreen(args: TrainRecordScreenArgs) {
             onBackClicked = { viewModel.obtainEvent(TrainRecordEvent.OnBackPressed) },
             onStarClick = { viewModel.obtainEvent(TrainRecordEvent.OnStartRecordClick) },
             onStopClick = { viewModel.obtainEvent(TrainRecordEvent.OnStopRecordClick) },
-            onRecordTimeChanged = { viewModel.obtainEvent(TrainRecordEvent.TrainRecordTimeChanged(it)) }
+            onSaveExerciseTimestamp = { viewModel.obtainEvent(TrainRecordEvent.OnSaveExerciseTimestampPressed) },
+            onRecordTimeChanged = { viewModel.obtainEvent(TrainRecordEvent.TrainRecordTimeChanged(it.toLong())) },
         )
 
-        when(viewAction) {
+        when (viewAction) {
             TrainRecordAction.NavigateBack -> {
                 viewModel.obtainEvent(TrainRecordEvent.ActionInvoked)
                 rootController.popBackStack()
             }
+
             null -> {
 
             }

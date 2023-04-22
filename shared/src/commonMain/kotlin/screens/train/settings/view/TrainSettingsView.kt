@@ -31,7 +31,7 @@ fun TrainSettingsView(
 
         IntegerField(
             modifier = Modifier.fillMaxWidth().padding(top = 8.dp, start = 16.dp, end = 16.dp),
-            value = viewState.trainTime,
+            value = viewState.trainTime.toInt(),
             onChange = onTrainTimeChange,
         )
 
