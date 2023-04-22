@@ -21,3 +21,5 @@ SELECT * FROM SensorDataEntity WHERE recordId = :recordId;
 selectAllByRecordIdAndSensorType:
 SELECT * FROM SensorDataEntity WHERE recordId = :recordId AND sensorType = :sensorId;
 
+deleteByRecordId:
+DELETE FROM SensorDataEntity WHERE recordId = :recordId;

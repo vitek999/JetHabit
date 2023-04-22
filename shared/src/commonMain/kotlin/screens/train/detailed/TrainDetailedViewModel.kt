@@ -38,6 +38,14 @@ class TrainDetailedViewModel(private val trainId: Long) : BaseSharedViewModel<Tr
             TrainDetailedEvent.OnRecordClicked -> handleOnRecordClicked()
             is TrainDetailedEvent.OnSavedRecordClicked -> handleOnSavedRecordClicked(recordId = viewEvent.recordId)
             TrainDetailedEvent.OnExportClicked -> handleOnExportClicked()
+            is TrainDetailedEvent.OnDeleteClicked -> handleOnDeleteClicked(viewEvent.recordId)
+        }
+    }
+
+    private fun handleOnDeleteClicked(recordId: Long) {
+        viewModelScope.launch {
+            trainRepository.deleteRecord(recordId)
+            fetchRecords()
         }
     }
 

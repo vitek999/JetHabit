@@ -12,3 +12,6 @@ SELECT * FROM ExerciseTimeStampEntity;
 
 selectByRecordId:
 SELECT * FROM ExerciseTimeStampEntity WHERE recordId = :recordId;
+
+deleteByRecordId:
+DELETE FROM ExerciseTimeStampEntity WHERE  recordId = :recordId;

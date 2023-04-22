@@ -25,7 +25,8 @@ fun TrainDetailedScreen(trainId: Long) {
             onBackClick = { viewModel.obtainEvent(TrainDetailedEvent.OnBackClicked) },
             onRecordClick = { viewModel.obtainEvent(TrainDetailedEvent.OnRecordClicked) },
             onExportClick = { viewModel.obtainEvent(TrainDetailedEvent.OnExportClicked) },
-            omSavedRecordClick = { viewModel.obtainEvent(TrainDetailedEvent.OnSavedRecordClicked(it))}
+            omSavedRecordClick = { viewModel.obtainEvent(TrainDetailedEvent.OnSavedRecordClicked(it))},
+            onDeleteClick = { viewModel.obtainEvent(TrainDetailedEvent.OnDeleteClicked(it)) }
         )
 
         when(val action = viewAction) {

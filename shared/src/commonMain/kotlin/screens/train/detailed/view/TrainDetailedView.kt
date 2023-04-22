@@ -23,6 +23,7 @@ fun TrainDetailedView(
     onRecordClick: () -> Unit,
     onExportClick: () -> Unit,
     omSavedRecordClick: (id: Long) -> Unit,
+    onDeleteClick: (id: Long) -> Unit,
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
         ScreenHeader(
@@ -45,12 +46,19 @@ fun TrainDetailedView(
 
         LazyColumn(modifier = Modifier.fillMaxSize().padding(top = 8.dp)) {
             items(viewState.results) { item ->
-                Text(
-                    modifier = Modifier.clickable { omSavedRecordClick(item.id) },
-                    text = item.toString(),
-                    style = JetHabitTheme.typography.body,
-                    color = JetHabitTheme.colors.primaryText,
-                )
+                Column {
+                    Text(
+                        modifier = Modifier.clickable { omSavedRecordClick(item.id) }.padding(top = 8.dp),
+                        text = item.toString(),
+                        style = JetHabitTheme.typography.body,
+                        color = JetHabitTheme.colors.primaryText,
+                    )
+                    JetHabitButton(
+                        text = "Удалить",
+                        onClick = { onDeleteClick(item.id) }
+                    )
+                }
+
             }
         }
 

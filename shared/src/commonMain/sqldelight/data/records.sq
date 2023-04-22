@@ -19,3 +19,6 @@ SELECT id FROM RecordEntity ORDER BY id DESC LIMIT 1;
 
 selectByUserAndTrain:
 SELECT * FROM RecordEntity WHERE userId = :userId AND trainId = :trainId;
+
+deleteById:
+DELETE FROM RecordEntity WHERE id = :recordId;

@@ -7,4 +7,5 @@ sealed class TrainDetailedEvent {
     object OnExportClicked : TrainDetailedEvent()
 
     data class OnSavedRecordClicked(val recordId: Long) : TrainDetailedEvent()
+    data class OnDeleteClicked(val recordId: Long) : TrainDetailedEvent()
 }

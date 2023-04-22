@@ -91,6 +91,13 @@ class TrainRepository(private val database: Database) {
         }
     }
 
+    fun deleteRecord(recordId: Long) {
+        database.exerciseQueries.deleteByRecordId(recordId)
+        database.sensor_dataQueries.deleteByRecordId(recordId)
+        database.recordsQueries.deleteById(recordId)
+    }
+
+
     companion object  {
         private fun RecordEntity.asModel(): Record = Record(
             id = id,
