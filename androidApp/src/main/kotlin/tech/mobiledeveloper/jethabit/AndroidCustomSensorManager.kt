@@ -119,7 +119,7 @@ class AndroidCustomSensorManager(private val context: Context) : CustomSensorMan
                 SAMPLING_PERIOD
             )
         }
-        manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)?.let { sensor ->
+        manager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION)?.let { sensor ->
             manager.registerListener(
                 callback,
                 sensor,
