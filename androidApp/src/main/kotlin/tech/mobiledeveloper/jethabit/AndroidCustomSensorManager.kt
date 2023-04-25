@@ -60,7 +60,7 @@ class AndroidCustomSensorManager(private val context: Context) : CustomSensorMan
                         TAG,
                         "onSensorChanged: ${deltaTimeStamp}:Gx${event.values[0]};Gy${event.values[1]};Gz${event.values[2]}"
                     )
-                    if (event.sensor.type == Sensor.TYPE_LINEAR_ACCELERATION) {
+                    if (event.sensor.type == Sensor.TYPE_ACCELEROMETER) {
                         if (!IS_NORMAL) {
                             acCache.add(
                                 AccelerometerValue(
@@ -119,7 +119,7 @@ class AndroidCustomSensorManager(private val context: Context) : CustomSensorMan
                 SAMPLING_PERIOD
             )
         }
-        manager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION)?.let { sensor ->
+        manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)?.let { sensor ->
             manager.registerListener(
                 callback,
                 sensor,
