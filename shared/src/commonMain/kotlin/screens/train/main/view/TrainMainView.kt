@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import data.features.trains.main.models.Train
 import screens.train.main.model.TrainMainScreenViewState
@@ -82,7 +83,13 @@ internal fun TrainMainView(
                 }
             }
         } else {
-            // TODO: добавить надпись, что необходимо выбрать пользователя активного
+            Text(
+                modifier = Modifier.fillMaxWidth().padding(start = 8.dp, end = 8.dp, top = 8.dp),
+                text = "Необходимо выбрать активного пользователя",
+                style = JetHabitTheme.typography.body,
+                color = JetHabitTheme.colors.primaryText,
+                textAlign = TextAlign.Center,
+            )
         }
     }
 }
