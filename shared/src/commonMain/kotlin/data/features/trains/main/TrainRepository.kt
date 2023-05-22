@@ -19,6 +19,7 @@ class TrainRepository(private val database: Database) {
         Train(3L,  "Прыжки"),
         Train(4L,  "Выпады"),
         Train(5L,  "Пресс"),
+        Train(DETECT_TRAIN_ID, "Определение типа упражнения")
     )
 
     suspend fun fetchAllTrains(): List<Train> = trains
@@ -99,6 +100,8 @@ class TrainRepository(private val database: Database) {
 
 
     companion object  {
+        const val DETECT_TRAIN_ID = 9999L
+
         private fun RecordEntity.asModel(): Record = Record(
             id = id,
             userId = userId,

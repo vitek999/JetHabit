@@ -70,6 +70,8 @@ kotlin {
                 implementation(libs.kotlin.serialization)
                 implementation(libs.kotlin.datetime)
 
+                implementation(libs.ktor.client.core)
+
                 implementation(libs.settings.multuiplatform.noarg)
                 implementation(libs.settings.multuiplatform)
             }
@@ -83,6 +85,7 @@ kotlin {
             dependencies {
                 implementation("com.google.android.material:material:1.7.0")
                 implementation(libs.sqldelight.android)
+                implementation(libs.ktor.client.okhttp)
             }
         }
         val androidUnitTest by getting {

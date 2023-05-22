@@ -71,14 +71,18 @@ internal fun TrainMainView(
         )
 
 
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(top = 16.dp, start = 8.dp, end = 8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            items(viewState.trains) { trainItem ->
-                TrainRow(train = trainItem, onRowClick = { onRowClick(trainItem) })
+        if (viewState.selectedUser != null) {
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(top = 16.dp, start = 8.dp, end = 8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                items(viewState.trains) { trainItem ->
+                    TrainRow(train = trainItem, onRowClick = { onRowClick(trainItem) })
+                }
             }
+        } else {
+            // TODO: добавить надпись, что необходимо выбрать пользователя активного
         }
     }
 }
