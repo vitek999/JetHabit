@@ -65,9 +65,12 @@ class TrainDetailedViewModel(private val trainId: Long) : BaseSharedViewModel<Tr
 
     private fun handleOnSavedRecordClicked(recordId: Long) {
         viewModelScope.launch {
-            val data = trainRepository.fetchSensorDataByTrain(recordId)
-            println(data)
-            println("${data.gyroscopeValue.size} ${data.accelerometerValue.size}")
+            val record = viewState.results.firstOrNull { it.id == recordId } ?: return@launch
+//            if (record.trainId == TrainRepository.DETECT_TRAIN_ID) {
+                val data = trainRepository.fetchSensorDataByTrain(recordId)
+                println("${data.gyroscopeValue.size} ${data.accelerometerValue.size}")
+                viewAction = TrainDetailedAction.OpenRecordPrediction(recordId)
+//            }
         }
     }
 

@@ -23,6 +23,7 @@ import screens.splash.SplashScreen
 import screens.stats.StatisticsScreen
 import screens.train.detailed.TrainDetailedScreen
 import screens.train.main.TrainMainScreen
+import screens.train.prediction_results.PredictionResultsScreen
 import screens.train.record.TrainRecordScreen
 import screens.train.record.TrainRecordScreenArgs
 import screens.train.settings.TrainSettingsScreen
@@ -61,6 +62,10 @@ internal fun RootComposeBuilder.navigationGraph() {
 
     screen(NavigationTree.TrainDataCollector.Detailed.name) {
         TrainDetailedScreen(it as Long)
+    }
+
+    screen(NavigationTree.TrainDataCollector.PredictionResults.name) {
+        PredictionResultsScreen(it as Long)
     }
 
     screen(NavigationTree.TrainDataCollector.Record.name) {
@@ -126,6 +131,8 @@ internal object NavigationTree {
         object Record : TrainDataCollector()
 
         object Settings : TrainDataCollector()
+
+        object PredictionResults : TrainDataCollector()
     }
 
     sealed class Users : Screen() {

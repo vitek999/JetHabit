@@ -5,14 +5,19 @@ import data.RecordEntity
 import data.SensorDataEntity
 import data.features.trains.main.models.Exercise
 import data.features.trains.main.models.Record
+import data.features.trains.main.models.RecordDto
 import data.features.trains.main.models.Train
+import data.features.trains.main.remote.TrainsRemoteDataSource
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import sensors.AccelerometerValue
 import sensors.GyroscopeValue
 import sensors.SensorData
 
-class TrainRepository(private val database: Database) {
+class TrainRepository(
+    private val database: Database,
+    private val remoteDataSource: TrainsRemoteDataSource,
+) {
     private val trains: List<Train> = listOf(
         Train(1L,  "Приседания"),
         Train(2L,  "Отжимания"),
@@ -96,6 +101,10 @@ class TrainRepository(private val database: Database) {
         database.exerciseQueries.deleteByRecordId(recordId)
         database.sensor_dataQueries.deleteByRecordId(recordId)
         database.recordsQueries.deleteById(recordId)
+    }
+
+    suspend fun predictResults(trainDto: RecordDto): List<String> {
+        return remoteDataSource.predictResults(trainDto)?.result.orEmpty()
     }
 
 

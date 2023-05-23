@@ -44,6 +44,9 @@ fun TrainDetailedScreen(trainId: Long) {
                      )
                  )
             }
+            is TrainDetailedAction.OpenRecordPrediction -> {
+                rootController.push(NavigationTree.TrainDataCollector.PredictionResults.name, params = action.recordId)
+            }
         }
     }
 }
