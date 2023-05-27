@@ -18,6 +18,7 @@ import ui.themes.components.IntegerField
 import ui.themes.components.JetHabitButton
 import ui.themes.components.LabelTextView
 import ui.themes.components.ScreenHeader
+import utils.SnackbarView
 
 @Composable
 internal fun CreateUserView(
@@ -33,68 +34,73 @@ internal fun CreateUserView(
 ) {
     val itemModifier = Modifier.padding(top = 8.dp, start = 16.dp, end = 16.dp)
 
-    Column(modifier = Modifier.fillMaxSize()) {
-        ScreenHeader(
-            title = AppRes.string.user_creation,
-            backEnabled = true,
-            onBackClick = onBackClick
-        )
+    Box(modifier = Modifier.fillMaxSize()) {
 
-        CreateUserTextField(
-            modifier = itemModifier,
-            text = viewState.firstName,
-            label = AppRes.string.first_name,
-            onChange = onFirstNameChange,
-        )
-        CreateUserTextField(
-            modifier = itemModifier,
-            text = viewState.secondName,
-            label = AppRes.string.last_name,
-            onChange = onSecondNameChange,
-        )
-        IntegerField(
-            modifier = itemModifier,
-            value = viewState.age,
-            label = AppRes.string.age,
-            onChange = onAgeChange,
-        )
-        IntegerField(
-            modifier = itemModifier,
-            value = viewState.height,
-            label = AppRes.string.height,
-            onChange = onHeightChange,
-        )
-        IntegerField(
-            modifier = itemModifier,
-            value = viewState.weight,
-            label = AppRes.string.weight,
-            onChange = onWeightChange,
-        )
+        Column(modifier = Modifier.fillMaxSize()) {
+            ScreenHeader(
+                title = AppRes.string.user_creation,
+                backEnabled = true,
+                onBackClick = onBackClick
+            )
 
-        Text(
-            modifier = itemModifier,
-            text = AppRes.string.gender,
-            style = JetHabitTheme.typography.body,
-            color = JetHabitTheme.colors.primaryText,
-        )
+            CreateUserTextField(
+                modifier = itemModifier,
+                text = viewState.firstName,
+                label = AppRes.string.first_name,
+                onChange = onFirstNameChange,
+            )
+            CreateUserTextField(
+                modifier = itemModifier,
+                text = viewState.secondName,
+                label = AppRes.string.last_name,
+                onChange = onSecondNameChange,
+            )
+            IntegerField(
+                modifier = itemModifier,
+                value = viewState.age,
+                label = AppRes.string.age,
+                onChange = onAgeChange,
+            )
+            IntegerField(
+                modifier = itemModifier,
+                value = viewState.height,
+                label = AppRes.string.height,
+                onChange = onHeightChange,
+            )
+            IntegerField(
+                modifier = itemModifier,
+                value = viewState.weight,
+                label = AppRes.string.weight,
+                onChange = onWeightChange,
+            )
 
-        UserCreationRadioButton(
-            selected = viewState.gender == Gender.Male,
-            label = AppRes.string.male,
-            onClick = { onGenderChange(Gender.Male) }
-        )
+            Text(
+                modifier = itemModifier,
+                text = AppRes.string.gender,
+                style = JetHabitTheme.typography.body,
+                color = JetHabitTheme.colors.primaryText,
+            )
 
-        UserCreationRadioButton(
-            selected = viewState.gender == Gender.Female,
-            label = AppRes.string.female,
-            onClick = { onGenderChange(Gender.Female) }
-        )
+            UserCreationRadioButton(
+                selected = viewState.gender == Gender.Male,
+                label = AppRes.string.male,
+                onClick = { onGenderChange(Gender.Male) }
+            )
 
-        JetHabitButton(
-            modifier = itemModifier.fillMaxWidth(),
-            text = AppRes.string.create_user,
-            onClick = onSaveItemClick,
-        )
+            UserCreationRadioButton(
+                selected = viewState.gender == Gender.Female,
+                label = AppRes.string.female,
+                onClick = { onGenderChange(Gender.Female) }
+            )
+
+            JetHabitButton(
+                modifier = itemModifier.fillMaxWidth(),
+                text = AppRes.string.create_user,
+                onClick = onSaveItemClick,
+            )
+        }
+
+        SnackbarView(text = viewState.errorText)
     }
 }
 

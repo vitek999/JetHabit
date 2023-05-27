@@ -11,4 +11,5 @@ data class CreateUserViewState(
     val weight: Int = 0,
     val height: Int = 0,
     val gender: Gender = Gender.Male,
+    val errorText: String? = null,
 )

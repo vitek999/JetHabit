@@ -5,6 +5,7 @@ import data.features.users.UserRepository
 import data.features.users.models.Gender
 import data.features.users.models.User
 import di.Inject
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import screens.users.create.model.CreateUserAction
 import screens.users.create.model.CreateUserEvent
@@ -59,20 +60,39 @@ class CreateUserViewModel : BaseSharedViewModel<CreateUserViewState, CreateUserA
     }
 
     private fun handleOnSaveClicked() {
-        val user = buildUserFromViewState(viewState)
-        viewState = viewState.copy(progressState = ProgressState.Loading)
-        viewModelScope.launch {
-            runCatching {
-                userRepository.createUser(user)
-                viewState = viewState.copy(progressState = ProgressState.Loaded)
-                viewAction = CreateUserAction.UserSaved
-            }.onFailure {
-                viewState = viewState.copy(progressState = ProgressState.Error)
+        if (isValidData()) {
+            val user = buildUserFromViewState(viewState)
+            viewState = viewState.copy(progressState = ProgressState.Loading)
+            viewModelScope.launch {
+                runCatching {
+                    userRepository.createUser(user)
+                    viewState = viewState.copy(progressState = ProgressState.Loaded)
+                    viewAction = CreateUserAction.UserSaved
+                }.onFailure {
+                    viewState = viewState.copy(progressState = ProgressState.Error)
+                }
             }
+        } else {
+            showErrorMessage("Проверьте правильность данных")
+        }
+    }
+
+    private fun isValidData(): Boolean {
+        return viewState.firstName.isNotBlank() && viewState.secondName.isNotBlank()
+                        && viewState.age > 0 && viewState.height > 0 && viewState.weight > 0
+    }
+
+    private fun showErrorMessage(text: String) {
+        viewModelScope.launch {
+            viewState = viewState.copy(errorText = text)
+            delay(ERROR_MESSAGE_TIME_IN_MILLS)
+            viewState = viewState.copy(errorText = null)
         }
     }
 
     companion object {
+        private const val ERROR_MESSAGE_TIME_IN_MILLS = 3000L
+
         private fun buildUserFromViewState(viewState: CreateUserViewState): User = User(
             id = 1L,
             firstName = viewState.firstName,

@@ -10,4 +10,5 @@ data class TrainRecordViewState(
     val recordTime: Long = 20,
     val timestamps: List<Long> = emptyList(),
     val startRecordTimeStamp: Long = 0,
+    val errorText: String? = null,
 )

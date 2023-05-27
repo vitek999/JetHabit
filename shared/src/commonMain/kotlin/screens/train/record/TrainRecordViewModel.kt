@@ -5,6 +5,7 @@ import data.features.trains.main.TrainRepository
 import data.features.trains.settings.SettingsRepository
 import data.features.users.UserRepository
 import di.Inject
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import screens.train.record.model.TrainRecordAction
@@ -82,8 +83,17 @@ class TrainRecordViewModel(
 
     private fun handleOnStartRecordClick() {
         soundManager.play()
-        sensorManager.start(viewState.recordTime.toDuration(DurationUnit.SECONDS))
-        viewState = viewState.copy(recording = true, timestamps = emptyList(), startRecordTimeStamp = Clock.System.now().toEpochMilliseconds())
+
+        if (viewState.recordTime >= 10) {
+            sensorManager.start(viewState.recordTime.toDuration(DurationUnit.SECONDS))
+            viewState = viewState.copy(
+                recording = true,
+                timestamps = emptyList(),
+                startRecordTimeStamp = Clock.System.now().toEpochMilliseconds()
+            )
+        } else {
+            showErrorMessage("длительность упраженния должна быть 10 секунд и больше")
+        }
     }
 
     private fun handleOnBackPressed() {
@@ -102,5 +112,17 @@ class TrainRecordViewModel(
             val train = trainRepository.fetchTrainById(trainId)
             viewState = viewState.copy(train = train)
         }
+    }
+
+    private fun showErrorMessage(text: String) {
+        viewModelScope.launch {
+            viewState = viewState.copy(errorText = text)
+            delay(ERROR_MESSAGE_TIME_IN_MILLS)
+            viewState = viewState.copy(errorText = null)
+        }
+    }
+
+    companion object {
+        private const val ERROR_MESSAGE_TIME_IN_MILLS = 3000L
     }
 }
