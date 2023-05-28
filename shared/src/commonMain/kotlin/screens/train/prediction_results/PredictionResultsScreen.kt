@@ -9,6 +9,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.adeo.kviewmodel.compose.ViewModel
 import com.adeo.kviewmodel.compose.observeAsState
@@ -51,7 +52,12 @@ private fun PredictionResultsView(state: PredictionResultsViewState, onBackClick
       )
 
       if (state.results.isEmpty()) {
-        Text("ошибка получения данных о типе упражнения")
+        Text(
+          modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp),
+          textAlign = TextAlign.Center,
+          text = "ошибка получения данных о типе упражнения",
+          color = Color.Red,
+        )
       } else {
         state.results.forEach {
           PredictionResiltsItem(it)
